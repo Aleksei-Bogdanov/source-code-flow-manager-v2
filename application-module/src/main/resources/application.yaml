@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: application
+  r2dbc:
+    url: r2dbc:postgresql://postgres@localhost:5432/application_db
+    name: postgres
+    password: password
