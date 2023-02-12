@@ -19,8 +19,10 @@ public class Application {
     ConnectionFactoryInitializer initializer(@Qualifier("connectionFactory") ConnectionFactory connectionFactory) {
         ConnectionFactoryInitializer initializer = new ConnectionFactoryInitializer();
         initializer.setConnectionFactory(connectionFactory);
+
         ResourceDatabasePopulator resource =
                 new ResourceDatabasePopulator(new ClassPathResource("schema.sql"));
+
         initializer.setDatabasePopulator(resource);
         return initializer;
     }

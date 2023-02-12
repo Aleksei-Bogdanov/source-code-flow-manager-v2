@@ -10,7 +10,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping(value = "/api/v1/user")
+@RequestMapping(value = "/api/v1/users")
 @RequiredArgsConstructor
 @Slf4j
 public class UserController {
@@ -27,9 +27,17 @@ public class UserController {
         return userRepository.findByName(name);
     }
 
-    @PostMapping
-    public Mono<User> createMember(@RequestBody User user){
+    @PostMapping("/addOne")
+    public Mono<User> addUser(@RequestBody User user){
         return userRepository.save(user);
     }
 
+    @PostMapping("/addMultiple")
+    public Flux<User> addUsers(@RequestBody Flux<User> users) {
+        return users.flatMap(userRepository::save);
+    }
+    @DeleteMapping(value = "/{id}")
+    public Mono<Void> deleteUser(@PathVariable Long id){
+        return userRepository.deleteById(id);
+    }
 }
